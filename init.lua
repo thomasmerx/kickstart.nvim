@@ -247,6 +247,9 @@ vim.o.completeopt = 'menuone,noselect'
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
 
+-- To show whitespace characters using set list
+vim.o.listchars = 'eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣'
+
 -- [[ Basic Keymaps ]]
 
 -- Keymaps for better default experience
