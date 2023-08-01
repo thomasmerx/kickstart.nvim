@@ -67,6 +67,7 @@ require('lazy').setup({
 
   -- Git related plugins
   'tpope/vim-fugitive',
+  'shumphrey/fugitive-gitlab.vim',
   'tpope/vim-rhubarb',
 
   -- Detect tabstop and shiftwidth automatically
@@ -191,6 +192,12 @@ require('lazy').setup({
     build = ':TSUpdate',
   },
 
+  {
+    -- Markdown Preview
+    'iamcco/markdown-preview.nvim',
+    build = ':call mkdp#util#install()'
+  },
+
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
@@ -249,6 +256,11 @@ vim.o.termguicolors = true
 
 -- To show whitespace characters using set list
 vim.o.listchars = 'eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣'
+
+-- fugitive config
+vim.g.fugitive_gitlab_domains = {'https://gitlab.vi.vector.int'}
+-- Needs the installation of the package wslu in Ubuntu
+vim.api.nvim_create_user_command('Browse', '!wslview <q-args>', { nargs = 1})
 
 -- [[ Basic Keymaps ]]
 
