@@ -272,6 +272,22 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
+-- split navigations
+vim.keymap.set('n', "<C-J>", "<C-W><C-J>", { silent = true })
+vim.keymap.set('n', "<C-K>", "<C-W><C-K>", { silent = true })
+vim.keymap.set('n', "<C-L>", "<C-W><C-L>", { silent = true })
+vim.keymap.set('n', "<C-H>", "<C-W><C-H>", { silent = true })
+vim.keymap.set('i', "<C-J>", "<ESC><C-W><C-J>", { silent = true })
+vim.keymap.set('i', "<C-K>", "<ESC><C-W><C-K>", { silent = true })
+vim.keymap.set('i', "<C-L>", "<ESC><C-W><C-L>", { silent = true })
+vim.keymap.set('i', "<C-H>", "<ESC><C-W><C-H>", { silent = true })
+vim.keymap.set('t', "<C-J>", "<C-\\><C-N><C-W><C-J>", { silent = true })
+vim.keymap.set('t', "<C-K>", "<C-\\><C-N><C-W><C-K>", { silent = true })
+vim.keymap.set('t', "<C-L>", "<C-\\><C-N><C-W><C-L>", { silent = true })
+vim.keymap.set('t', "<C-H>", "<C-\\><C-N><C-W><C-H>", { silent = true })
+vim.keymap.set('t', "<ESC>", "<C-\\><C-N>", { silent = true })
+vim.keymap.set('t', "<C-v><ESC>", "<ESC>", { silent = true })
+
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
