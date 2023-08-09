@@ -288,6 +288,9 @@ vim.keymap.set('t', "<C-H>", "<C-\\><C-N><C-W><C-H>", { silent = true })
 vim.keymap.set('t', "<ESC>", "<C-\\><C-N>", { silent = true })
 vim.keymap.set('t', "<C-v><ESC>", "<ESC>", { silent = true })
 
+-- Find files including hidden files
+vim.keymap.set('n', '<Leader>ff', ':lua require"telescope.builtin".find_files({ hidden = true })<CR>', {noremap = true, silent = true, desc= '[F]ind [Files] including hidden'})
+
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
