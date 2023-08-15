@@ -35,6 +35,11 @@ I hope you enjoy your Neovim journey,
 
 P.S. You can delete this when you're done too. It's your config now :)
 --]]
+
+-- Disable integrated netrw as we want to use nvim-tree
+vim.g.loaded_netrw       = 1
+vim.g.loaded_netrwPlugin = 1
+
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
@@ -73,8 +78,18 @@ require('lazy').setup({
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
 
+
   -- NOTE: This is where your plugins related to LSP can be installed.
   --  The configuration is done below. Search for lspconfig to find it below.
+  {
+    -- Nice tree viewer
+    'nvim-tree/nvim-tree.lua',
+    opts = {},
+    dependencies = {
+      'nvim-tree/nvim-web-devicons',
+    },
+  },
+
   {
     -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
@@ -262,6 +277,7 @@ vim.g.fugitive_gitlab_domains = {'https://gitlab.vi.vector.int'}
 -- Needs the installation of the package wslu in Ubuntu
 vim.api.nvim_create_user_command('Browse', '!wslview <q-args>', { nargs = 1})
 
+
 -- [[ Basic Keymaps ]]
 
 -- Keymaps for better default experience
@@ -290,6 +306,9 @@ vim.keymap.set('t', "<C-v><ESC>", "<ESC>", { silent = true })
 
 -- Find files including hidden files
 vim.keymap.set('n', '<Leader>ff', ':lua require"telescope.builtin".find_files({ hidden = true })<CR>', {noremap = true, silent = true, desc= '[F]ind [Files] including hidden'})
+
+-- Toggle nvim-tree
+vim.keymap.set('n', '<Leader>t', ':NvimTreeToggle<CR>', {noremap = true, silent = true, desc='Toggle nvim-tree'})
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
