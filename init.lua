@@ -84,7 +84,11 @@ require('lazy').setup({
   {
     -- Nice tree viewer
     'nvim-tree/nvim-tree.lua',
-    opts = {},
+    opts = {
+      view = {
+        width = 75
+      },
+    },
     dependencies = {
       'nvim-tree/nvim-web-devicons',
     },
@@ -211,6 +215,14 @@ require('lazy').setup({
     -- Markdown Preview
     'iamcco/markdown-preview.nvim',
     build = ':call mkdp#util#install()'
+  },
+
+  {
+    -- Markdown TOC generation
+    'mzlogin/vim-markdown-toc',
+    init = function()
+      vim.g.vmt_auto_update_on_save=0
+    end,
   },
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
