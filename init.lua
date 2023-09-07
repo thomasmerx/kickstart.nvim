@@ -186,6 +186,9 @@ require('lazy').setup({
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim', opts = {} },
 
+  -- JAR Browser
+  { 'renerocksai/jar-sdk-browser.nvim', opts = {} },
+
   -- Fuzzy Finder (files, lsp, etc)
   { 'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' } },
 
@@ -506,6 +509,27 @@ local servers = {
       telemetry = { enable = false },
     },
   },
+  jdtls = {
+    java = {
+      configuration = {
+        runtimes = {
+          {
+            name = "JavaSE-11",
+            path = "/usr/lib/jvm/java-11-openjdk-amd64/",
+            default = true,
+          },
+        }
+      },
+      home = "/usr/lib/jvm/java-11-openjdk-amd64/",
+      import = {
+        gradle = {
+          java = {
+            home = "/usr/lib/jvm/java-11-openjdk-amd64/"
+          }
+        }
+      }
+    }
+  }
 }
 
 -- Setup neovim lua configuration
