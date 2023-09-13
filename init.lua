@@ -293,6 +293,29 @@ vim.g.fugitive_gitlab_domains = {'https://gitlab.vi.vector.int'}
 vim.api.nvim_create_user_command('Browse', '!wslview <q-args>', { nargs = 1})
 
 
+-- Define custom command
+vim.api.nvim_create_user_command('DevContainer',
+  function()
+    if vim.fn.isdirectory(".devcontainer") == 1 then
+      vim.cmd.tabnew()
+      vim.cmd('terminal')
+      local t = function(str)
+        return vim.api.nvim_replace_termcodes(str, true, true, true)
+      end
+      vim.fn.feedkeys(t("devcontainer up --workspace-folder .<CR>"))
+      vim.fn.feedkeys(t("devcontainer exec --workspace-folder . bash<CR>"))
+      vim.fn.feedkeys(t("<ESC>gT"))
+      vim.cmd.startinsert()
+      -- The following sleep is required to allow the Terminal commands to execute
+      local sleep = function(s)
+        local ntime = os.clock() + s/10
+        repeat until os.clock() > ntime
+      end
+      sleep(0.5)
+    end
+  end,
+  {  })
+
 -- [[ Basic Keymaps ]]
 
 -- Keymaps for better default experience
