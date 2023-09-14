@@ -531,6 +531,12 @@ local servers = {
   lemminx = {
     xml = {
       catalogs = {
+        --[[ Content of catalog.xml:
+        <?xml version="1.0"?>
+        <catalog  xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+          <uriSuffix uriSuffix="blabla.xsd" uri="file:///home/tom/xsd/blabla.xsd" />
+        </catalog>
+        --]]
         "/home/tom/xsd/catalog.xml"
       },
     }
