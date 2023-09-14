@@ -302,7 +302,7 @@ vim.api.nvim_create_user_command('DevContainer',
       local t = function(str)
         return vim.api.nvim_replace_termcodes(str, true, true, true)
       end
-      vim.fn.feedkeys(t("devcontainer up --workspace-folder .<CR>"))
+      vim.fn.feedkeys(t("devcontainer up --remove-existing-container --workspace-folder .<CR>"))
       vim.fn.feedkeys(t("devcontainer exec --workspace-folder . bash<CR>"))
       vim.fn.feedkeys(t("<ESC>gT"))
       vim.cmd.startinsert()
@@ -527,6 +527,13 @@ local servers = {
       workspace = { checkThirdParty = false },
       telemetry = { enable = false },
     },
+  },
+  lemminx = {
+    xml = {
+      catalogs = {
+        "/home/tom/xsd/catalog.xml"
+      },
+    }
   },
   jdtls = {
     java = {
