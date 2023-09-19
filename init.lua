@@ -295,14 +295,22 @@ vim.api.nvim_create_user_command('Browse', '!wslview <q-args>', { nargs = 1})
 
 -- Define custom command
 vim.api.nvim_create_user_command('DevContainer',
-  function()
+  function(opts)
     if vim.fn.isdirectory(".devcontainer") == 1 then
       vim.cmd.tabnew()
       vim.cmd('terminal')
       local t = function(str)
         return vim.api.nvim_replace_termcodes(str, true, true, true)
       end
-      vim.fn.feedkeys(t("devcontainer up --remove-existing-container --workspace-folder .<CR>"))
+      local rm
+      if (opts['args'] == 'rm') then
+        rm = "--remove-existing-container"
+      else
+        rm = ''
+      end
+      local command = string.format("devcontainer up %s --workspace-folder .<CR>", rm)
+      print(command)
+      vim.fn.feedkeys(t(command))
       vim.fn.feedkeys(t("devcontainer exec --workspace-folder . bash<CR>"))
       vim.fn.feedkeys(t("<ESC>gT"))
       vim.cmd.startinsert()
@@ -310,7 +318,7 @@ vim.api.nvim_create_user_command('DevContainer',
       vim.wait(100, function() end)
     end
   end,
-  {  })
+  { nargs = '?' })
 
 -- [[ Basic Keymaps ]]
 
