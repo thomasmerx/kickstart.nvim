@@ -289,6 +289,17 @@ vim.o.listchars = 'eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣'
 
 -- fugitive config
 vim.g.fugitive_gitlab_domains = {'https://gitlab.vi.vector.int'}
+
+-- Enable xml syntax based folding
+vim.g.xml_syntax_folding = 1
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'xml',
+  callback = function()
+    vim.wo.foldmethod = 'syntax'
+    vim.wo.foldlevel = 99
+  end
+})
+
 -- Needs the installation of the package wslu in Ubuntu
 vim.api.nvim_create_user_command('Browse', '!wslview <q-args>', { nargs = 1})
 
