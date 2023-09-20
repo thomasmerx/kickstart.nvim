@@ -183,6 +183,12 @@ require('lazy').setup({
     },
   },
 
+  {
+    'echasnovski/mini.trailspace',
+    version = '',
+    opts = { }
+  },
+
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim', opts = {} },
 
