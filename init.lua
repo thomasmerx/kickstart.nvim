@@ -277,6 +277,9 @@ vim.o.undofile = true
 vim.o.ignorecase = true
 vim.o.smartcase = true
 
+-- No wrap while searching
+vim.o.wrapscan = false
+
 -- Keep signcolumn on by default
 vim.wo.signcolumn = 'yes'
 
