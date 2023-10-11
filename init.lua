@@ -370,7 +370,7 @@ vim.keymap.set('t', "<C-v><ESC>", "<ESC>", { silent = true })
 vim.keymap.set('n', '<Leader>ff', ':lua require"telescope.builtin".find_files({ hidden = true })<CR>', {noremap = true, silent = true, desc= '[F]ind [Files] including hidden'})
 
 -- Toggle nvim-tree
-vim.keymap.set('n', '<Leader>t', ':NvimTreeToggle<CR>', {noremap = true, silent = true, desc='Toggle nvim-tree'})
+vim.keymap.set('n', '<Leader>t', ':NvimTreeFindFileToggle<CR>', {noremap = true, silent = true, desc='Toggle nvim-tree'})
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
