@@ -18,26 +18,7 @@ git_prompt ()
     echo " [$git_color$git_branch${c_reset}]"
 }
 
-# Thy holy prompt.
-PROMPT_COMMAND='PS1="${c_user}\u${c_reset}@${c_user}\h${c_reset}:${c_path}\W${c_reset}$(git_prompt)\$ "'
-
-alias gis='git status'
-
-. ~/.config/nvim/bash/git-completion.bash
-
-# Required for WSL2 to avoid some error messages
-sudo mount --make-rshared /
-
-alias sudo='sudo '
-if [ -z ${NVIM+x} ]; then
-  alias vim=nvim
-else
-  alias vim='nvim --server $NVIM --remote'
-fi
-export EDITOR=vim
-export VISUAL=vim
-
-function dev()
+dev()
 {
     if [ "$1" == "up" ]; then
 	if [ -n "${2+x}" ] && [ "$2" = "rm" ] ; then
@@ -59,7 +40,7 @@ function dev()
     fi
 }
 
-function dirdiff()
+dirdiff()
 {
     # Shell-escape each path:
     DIR1=$(printf '%q' "$1"); shift
@@ -67,13 +48,43 @@ function dirdiff()
     vim $@ -c "DirDiff $DIR1 $DIR2"
 }
 
+mrc()
+{
+    local branch_name
+    branch_name=$(git branch --show-current)
+    git remote update && \
+    git co main && \
+    git pull && \
+    git branch -d "${branch_name}" && \
+    git remote prune origin
+}
+
+# Thy holy prompt.
+PROMPT_COMMAND='PS1="${c_user}\u${c_reset}@${c_user}\h${c_reset}:${c_path}\W${c_reset}$(git_prompt)\$ "'
+
+alias gis='git status'
+
+. ~/.config/nvim/bash/git-completion.bash
+
+# Required for WSL2 to avoid some error messages
+sudo mount --make-rshared /
+
+alias sudo='sudo '
+if [ -z ${NVIM+x} ]; then
+  alias vim=nvim
+else
+  alias vim='nvim --server $NVIM --remote'
+fi
+export EDITOR=vim
+export VISUAL=vim
+
 export REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
 export SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
 
 export SSH_AUTH_SOCK=~/.ssh/ssh-agent.$HOSTNAME.sock
 ssh-add -l 2>/dev/null >/dev/null
 if [ $? -ge 2 ]; then
-    rm "$SSH_AUTH_SOCK"
+    rm "$SSH_AUTH_SOCK" 2>/dev/null >/dev/null
     ssh-agent -a "$SSH_AUTH_SOCK" >/dev/null
     ssh-add
 fi
