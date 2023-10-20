@@ -236,6 +236,8 @@ require('lazy').setup({
     end,
   },
 
+  { 'mfussenegger/nvim-jdtls' },
+
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
@@ -572,25 +574,7 @@ local servers = {
     }
   },
   jdtls = {
-    java = {
-      configuration = {
-        runtimes = {
-          {
-            name = "JavaSE-11",
-            path = "/usr/lib/jvm/java-11-openjdk-amd64/",
-            default = true,
-          },
-        }
-      },
-      home = "/usr/lib/jvm/java-11-openjdk-amd64/",
-      import = {
-        gradle = {
-          java = {
-            home = "/usr/lib/jvm/java-11-openjdk-amd64/"
-          }
-        }
-      }
-    }
+    autostart = false
   }
 }
 
@@ -615,6 +599,7 @@ mason_lspconfig.setup_handlers {
       on_attach = on_attach,
       settings = servers[server_name],
       filetypes = (servers[server_name] or {}).filetypes,
+      autostart = (servers[server_name] or {}).autostart,
     }
   end
 }
