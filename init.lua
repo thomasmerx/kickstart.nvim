@@ -372,6 +372,7 @@ vim.keymap.set('t', "<C-L>", "<C-\\><C-N><C-W><C-L>", { silent = true })
 vim.keymap.set('t', "<C-H>", "<C-\\><C-N><C-W><C-H>", { silent = true })
 vim.keymap.set('t', "<ESC>", "<C-\\><C-N>", { silent = true })
 vim.keymap.set('t', "<C-v><ESC>", "<ESC>", { silent = true })
+vim.keymap.set('n', "<F4>", ":let @\" = expand('%:p')<CR>", { silent = true })
 
 -- Find files including hidden files
 vim.keymap.set('n', '<Leader>ff', ':lua require"telescope.builtin".find_files({ hidden = true })<CR>', {noremap = true, silent = true, desc= '[F]ind [Files] including hidden'})
