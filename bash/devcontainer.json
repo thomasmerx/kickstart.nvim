@@ -1,0 +1,7 @@
+{
+	"build": {
+		"dockerfile": "Dockerfile",
+		"context": ".."
+	},
+	"postCreateCommand": "echo PATH=$PATH:~/nvim/bin:~/.local/share/nvim/mason/packages/clangd/clangd_16.0.2/bin>> ~/.bashrc"
+}

@@ -32,6 +32,7 @@ dev()
 	    --mount type=bind,source="$HOME"/.gitconfig,target=/home/vscode/.gitconfig \
 	    --mount type=bind,source="$HOME"/nvim,target=/home/vscode/nvim \
 	    --mount type=bind,source="$SSH_AUTH_SOCK",target="$SSH_AUTH_SOCK" \
+	    --override-config "$HOME"/.config/nvim/bash/devcontainer.json \
 	    $remove --workspace-folder .
     else
         devcontainer exec \
