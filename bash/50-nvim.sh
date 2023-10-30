@@ -2,7 +2,7 @@ create_link() {
 	pushd ~/.local/share/nvim/mason/bin/vscode || exit
 	filename=$(basename -- "$1")
 	destination=$(find "$1" -type l -printf "%l")
-	destination=${destination/tom/vscode}
+	destination=$(echo "$destination" | sed -e "s#/home/[a-z]*/#/home/vscode/#")
 	if [ ! -f "$filename" ]; then
 		ln -s "$destination" "$filename"
 	fi
