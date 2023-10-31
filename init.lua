@@ -127,6 +127,9 @@ require('lazy').setup({
       -- Adds LSP completion capabilities
       'hrsh7th/cmp-nvim-lsp',
 
+      -- Adds buffer completion capabilities
+      'hrsh7th/cmp-buffer',
+
       -- Adds a number of user-friendly snippets
       'rafamadriz/friendly-snippets',
     },
@@ -229,14 +232,6 @@ require('lazy').setup({
     -- Markdown Preview
     'iamcco/markdown-preview.nvim',
     build = ':call mkdp#util#install()'
-  },
-
-  {
-    -- Markdown TOC generation
-    'mzlogin/vim-markdown-toc',
-    init = function()
-      vim.g.vmt_auto_update_on_save=0
-    end,
   },
 
   { 'mfussenegger/nvim-jdtls' },
@@ -654,6 +649,7 @@ cmp.setup {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
     { name = 'path' },
+    { name = 'buffer' },
   },
 }
 
