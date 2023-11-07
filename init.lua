@@ -342,6 +342,33 @@ vim.api.nvim_create_user_command('DevContainer',
   end,
   { nargs = '?' })
 
+-- Open RST Sphinx Preview
+vim.api.nvim_create_user_command('RST',
+  function()
+    print(vim.cmd.terminal('bash -ic "dev ./create_doc.sh"'))
+    vim.fn.system({'wslview', './_build/findings.html'})
+  end,
+{ nargs = '?' })
+
+vim.api.nvim_create_autocmd('BufWritePost', {
+  pattern = '*.rst',
+  callback = function()
+    -- local cmd = string.format('bash -ic "dev sphinx-build -b html %s _build"', vim.fn.expand('%:h.'))
+    local cmd = string.format('bash -ic "dev sphinx-build -b html %s _build"', vim.fn.expand('%:h.'))
+    print(cmd)
+    vim.cmd.terminal(cmd)
+  end
+})
+
+-- Automatically delete terminal buffer if it exits with status OK
+vim.api.nvim_create_autocmd('TermClose', {
+  callback = function(args)
+    if vim.v.event.status == 0 then
+      vim.cmd({ cmd = 'bdelete', args = { args.buf }, bang = true })
+    end
+  end,
+})
+
 -- [[ Basic Keymaps ]]
 
 -- Keymaps for better default experience

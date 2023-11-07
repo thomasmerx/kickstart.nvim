@@ -37,6 +37,7 @@ dev()
     else
         devcontainer exec \
 	    --remote-env SSH_AUTH_SOCK="$SSH_AUTH_SOCK" \
+	    --remote-env TZ=UTC \
 	    --workspace-folder . "$@"
     fi
 }
