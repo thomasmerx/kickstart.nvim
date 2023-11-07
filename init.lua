@@ -345,7 +345,7 @@ vim.api.nvim_create_user_command('DevContainer',
 -- Open RST Sphinx Preview
 vim.api.nvim_create_user_command('RST',
   function()
-    print(vim.cmd.terminal('bash -ic "dev ./create_doc.sh"'))
+    vim.cmd.terminal('bash -ic "dev ./create_doc.sh"')
     vim.fn.system({'wslview', './_build/findings.html'})
   end,
 { nargs = '?' })
@@ -353,10 +353,8 @@ vim.api.nvim_create_user_command('RST',
 vim.api.nvim_create_autocmd('BufWritePost', {
   pattern = '*.rst',
   callback = function()
-    -- local cmd = string.format('bash -ic "dev sphinx-build -b html %s _build"', vim.fn.expand('%:h.'))
     local cmd = string.format('bash -ic "dev sphinx-build -b html %s _build"', vim.fn.expand('%:h.'))
-    print(cmd)
-    vim.cmd.terminal(cmd)
+    vim.cmd('bel 0split | terminal ' .. cmd)
   end
 })
 
