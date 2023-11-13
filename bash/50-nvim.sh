@@ -5,6 +5,11 @@ if [ ! -f "/home/tom/.local" ]; then
 else
 	echo "ln not done" >> /tmp/profile.log
 fi
-echo alias vim='nvim' >> ~/.bashrc
-echo alias sudo='sudo ' >> ~/.bashrc
-echo PATH="$PATH":~/nvim/bin >> ~/.bashrc
+
+grep "/nvim/bin" ~/.bashrc > /dev/null
+if [ $? == 1 ]; then
+	echo alias sudo=\'sudo env PATH=\$PATH \' >> ~/.bashrc
+	echo alias vim=\'nvim\' >> ~/.bashrc
+	echo PATH="$PATH":~/nvim/bin >> ~/.bashrc
+	echo PATH="$PATH":/home/vscode/nvim/bin | sudo tee -a /etc/environment
+fi
