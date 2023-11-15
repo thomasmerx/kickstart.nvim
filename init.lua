@@ -342,20 +342,36 @@ vim.api.nvim_create_user_command('DevContainer',
   end,
   { nargs = '?' })
 
+
+local get_git_root = function()
+  local git_root = '.'
+  local git_dir = vim.fn.finddir('.git', '.;')
+  if (git_dir ~= '') then
+    git_root = vim.fn.fnamemodify(git_dir, ':h')
+  end
+  return git_root
+end
+
+local sphinx_build = function()
+  local git_root = get_git_root()
+  local cmd = string.format('bash -ic "dev sphinx-build -b html %s _build"', git_root)
+  vim.cmd('bel 0split | terminal ' .. cmd)
+end
+
 -- Open RST Sphinx Preview
 vim.api.nvim_create_user_command('RST',
   function()
-    vim.cmd.terminal('bash -ic "dev ./create_doc.sh"')
-    vim.fn.system({'wslview', './_build/findings.html'})
+    local git_root = vim.fn.fnamemodify(get_git_root(), ':p')
+    local html_file = vim.fn.expand('%:t:r') .. '.html'
+    local preview_file = vim.fn.findfile(html_file, git_root .. '**')
+    sphinx_build()
+    vim.fn.system({'wslview', preview_file})
   end,
 { nargs = '?' })
 
 vim.api.nvim_create_autocmd('BufWritePost', {
   pattern = '*.rst',
-  callback = function()
-    local cmd = string.format('bash -ic "dev sphinx-build -b html %s _build"', vim.fn.expand('%:h.'))
-    vim.cmd('bel 0split | terminal ' .. cmd)
-  end
+  callback = sphinx_build
 })
 
 -- Automatically delete terminal buffer if it exits with status OK
@@ -511,6 +527,9 @@ require('nvim-treesitter.configs').setup {
   },
 }
 
+-- Enable debugging printout for lsp
+-- vim.lsp.set_log_level("debug")
+
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
@@ -599,6 +618,14 @@ local servers = {
   },
   jdtls = {
     autostart = false
+  },
+  esbonio = {
+    -- init_options = {
+    --   server = {
+    --     logLevel = "debug",
+    --     enableLivePreview = true
+    --   },
+    -- }
   }
 }
 
@@ -624,6 +651,7 @@ mason_lspconfig.setup_handlers {
       settings = servers[server_name],
       filetypes = (servers[server_name] or {}).filetypes,
       autostart = (servers[server_name] or {}).autostart,
+      init_options = (servers[server_name] or {}).init_options,
     }
   end
 }
