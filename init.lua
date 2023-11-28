@@ -365,13 +365,26 @@ vim.api.nvim_create_user_command('RST',
     local html_file = vim.fn.expand('%:t:r') .. '.html'
     local preview_file = vim.fn.findfile(html_file, git_root .. '**')
     sphinx_build()
-    vim.fn.system({'wslview', preview_file})
+    -- vim.fn.system({'wslview', preview_file})
+    -- Requires to install browser-sync:
+    -- npm install -g browser-sync
+    vim.b[0].jobid_browser_sync = vim.fn.jobstart({'browser-sync', 'start', '--server', '--files', './_build', '--startPath', preview_file})
   end,
 { nargs = '?' })
 
 vim.api.nvim_create_autocmd('BufWritePost', {
   pattern = '*.rst',
   callback = sphinx_build
+})
+
+vim.api.nvim_create_autocmd('BufDelete', {
+  pattern = '*.rst',
+  callback = function()
+    if vim.b[0].jobid_browser_sync then
+      vim.fn.jobstop(vim.b[0].jobid_browser_sync)
+      vim.b[0].jobid_browser_sync = nil
+    end
+  end,
 })
 
 -- Automatically delete terminal buffer if it exits with status OK
