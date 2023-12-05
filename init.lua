@@ -90,6 +90,9 @@ require('lazy').setup({
       view = {
         width = 75
       },
+      update_focused_file = {
+        enable = true,
+      },
     },
     dependencies = {
       'nvim-tree/nvim-web-devicons',
