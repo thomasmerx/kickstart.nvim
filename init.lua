@@ -75,9 +75,6 @@ require('lazy').setup({
   'shumphrey/fugitive-gitlab.vim',
   'tpope/vim-rhubarb',
 
-  -- Detect tabstop and shiftwidth automatically
-  'tpope/vim-sleuth',
-
   -- Directory Diff
   'will133/vim-dirdiff',
 
@@ -235,6 +232,12 @@ require('lazy').setup({
     -- Markdown Preview
     'iamcco/markdown-preview.nvim',
     build = ':call mkdp#util#install()'
+  },
+
+  {
+    -- Detect tabstop and shiftwidth automatically
+    'nmac427/guess-indent.nvim',
+    opts = {}
   },
 
   { 'mfussenegger/nvim-jdtls' },
