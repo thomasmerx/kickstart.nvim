@@ -237,7 +237,9 @@ require('lazy').setup({
   {
     -- Detect tabstop and shiftwidth automatically
     'nmac427/guess-indent.nvim',
-    opts = {}
+    config = function()
+      require('guess-indent').setup()
+    end
   },
 
   { 'mfussenegger/nvim-jdtls' },
