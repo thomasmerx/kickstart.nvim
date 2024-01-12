@@ -657,12 +657,17 @@ local servers = {
     autostart = false
   },
   esbonio = {
-    -- init_options = {
-    --   server = {
-    --     logLevel = "debug",
-    --     enableLivePreview = true
-    --   },
-    -- }
+    init_options = {
+      --[[ server = {
+        logLevel = "debug",
+        -- enableLivePreview = true
+      }, ]]
+      sphinx = {
+        confDir = ".",
+        buildDir = "${confDir}/_build"
+      }
+    },
+    cmd = {"bash", "-ic", "dev esbonio"},
   }
 }
 
@@ -689,6 +694,7 @@ mason_lspconfig.setup_handlers {
       filetypes = (servers[server_name] or {}).filetypes,
       autostart = (servers[server_name] or {}).autostart,
       init_options = (servers[server_name] or {}).init_options,
+      cmd = (servers[server_name] or {}).cmd or require('lspconfig')[server_name].cmd,
     }
   end
 }
