@@ -255,6 +255,14 @@ require('lazy').setup({
 
   { 'mfussenegger/nvim-jdtls' },
 
+  {
+    'windwp/nvim-autopairs',
+    event = "InsertEnter",
+    opts = {} -- this is equalent to setup({}) functions
+  },
+
+  { 'windwp/nvim-ts-autotag' },
+
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
@@ -521,6 +529,10 @@ require('nvim-treesitter.configs').setup {
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = false,
+
+  autotag = {
+    enable = true,
+  },
 
   highlight = { enable = true },
   indent = { enable = true },
