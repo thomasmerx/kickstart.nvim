@@ -13,4 +13,5 @@ if [ $? == 1 ]; then
 	echo alias gis=\'git status\' >> ~/.bashrc
 	echo PATH="$PATH":~/nvim/bin >> ~/.bashrc
 	echo PATH="$PATH":/home/vscode/nvim/bin | sudo tee -a /etc/environment
+	echo export SHELL=/bin/bash >> ~/.bashrc
 fi
