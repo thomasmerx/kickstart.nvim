@@ -23,6 +23,8 @@ dev()
     if [ "$1" == "up" ]; then
 	if [ -n "${2+x}" ] && [ "$2" = "rm" ] ; then
 	    remove="--remove-existing-container"
+    elif [ -n "${2+x}" ] && [ "$2" = "rmnc" ] ; then
+        remove="--remove-existing-container --build-no-cache"
 	else
 	    remove=
 	fi
