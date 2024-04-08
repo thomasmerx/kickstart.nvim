@@ -473,7 +473,13 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 local lga_actions = require("telescope-live-grep-args.actions")
 require('telescope').setup {
   defaults = {
-    path_display = { truncate=3 },
+    -- path_display = { shorten = { len = 1, exclude = {-1, -2, -3} } },
+    path_display = { "smart" },
+    layout_config = {
+      horizontal = {
+        width = 0.9
+      }
+    },
     mappings = {
       i = {
         ['<C-u>'] = false,
@@ -635,7 +641,9 @@ local on_attach = function(_, bufnr)
   nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
   nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
-  nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+  nmap('gr', function()
+    require('telescope.builtin').lsp_references({fname_width = 70, trim_text = true})
+  end, '[G]oto [R]eferences')
   nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
   nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
   nmap('<leader>ds', function()
