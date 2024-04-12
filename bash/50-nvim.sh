@@ -8,7 +8,7 @@ fi
 
 grep "/nvim/bin" ~/.bashrc > /dev/null
 if [ $? == 1 ]; then
-	echo alias sudo=\'sudo env PATH=\$PATH \' >> ~/.bashrc
+	echo alias sudo=\'sudo -s --preserve-env=PATH \' >> ~/.bashrc
 	echo alias vim=\'nvim\' >> ~/.bashrc
 	echo alias gis=\'git status\' >> ~/.bashrc
 	echo PATH="$PATH":~/nvim/bin >> ~/.bashrc
