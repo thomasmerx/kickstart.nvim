@@ -21,21 +21,21 @@ git_prompt ()
 dev()
 {
     if [ "$1" == "up" ]; then
-	if [ -n "${2+x}" ] && [ "$2" = "rm" ] ; then
-	    remove="--remove-existing-container"
-    elif [ -n "${2+x}" ] && [ "$2" = "rmnc" ] ; then
-        remove="--remove-existing-container --build-no-cache"
-	else
-	    remove=
-	fi
-	devcontainer "$1" \
-	    --mount type=bind,source="$HOME"/.config/nvim,target=/home/vscode/.config/nvim \
-	    --mount type=bind,source="$HOME"/.local,target=/home/vscode/.local \
-	    --mount type=bind,source="$HOME"/.gitconfig,target=/home/vscode/.gitconfig \
-	    --mount type=bind,source="$HOME"/nvim,target=/home/vscode/nvim \
-	    --mount type=bind,source="$SSH_AUTH_SOCK",target="$SSH_AUTH_SOCK" \
-	    --mount type=bind,source="$HOME"/.config/nvim/bash/50-nvim.sh,target=/etc/profile.d/50-nvim.sh \
-	    $remove --workspace-folder .
+        if [ -n "${2+x}" ] && [ "$2" = "rm" ] ; then
+            remove="--remove-existing-container"
+        elif [ -n "${2+x}" ] && [ "$2" = "rmnc" ] ; then
+            remove="--remove-existing-container --build-no-cache"
+        else
+            remove=
+        fi
+        devcontainer "$1" \
+            --mount type=bind,source="$HOME"/.config/nvim,target=/home/vscode/.config/nvim \
+            --mount type=bind,source="$HOME"/.local,target=/home/vscode/.local \
+            --mount type=bind,source="$HOME"/.gitconfig,target=/home/vscode/.gitconfig \
+            --mount type=bind,source="$HOME"/nvim,target=/home/vscode/nvim \
+            --mount type=bind,source="$SSH_AUTH_SOCK",target="$SSH_AUTH_SOCK" \
+            --mount type=bind,source="$HOME"/.config/nvim/bash/50-nvim.sh,target=/etc/profile.d/50-nvim.sh \
+            $remove --workspace-folder .
     else
         devcontainer exec \
 	    --remote-env SSH_AUTH_SOCK="$SSH_AUTH_SOCK" \
