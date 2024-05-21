@@ -93,6 +93,9 @@ export VISUAL=vim
 
 export REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
 export SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
+# To make devcontainer features work.
+# See https://github.com/microsoft/vscode-remote-release/issues/6092#issuecomment-1593704882
+export NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
 
 export SSH_AUTH_SOCK=~/.ssh/ssh-agent.$HOSTNAME.sock
 ssh-add -l 2>/dev/null >/dev/null
