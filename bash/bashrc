@@ -51,6 +51,7 @@ dev()
             --mount type=bind,source="$HOME"/nvim,target=/home/vscode/nvim \
             --mount type=bind,source="$SSH_AUTH_SOCK",target="$SSH_AUTH_SOCK" \
             --mount type=bind,source="$HOME"/.config/nvim/bash/50-nvim.sh,target=/etc/profile.d/50-nvim.sh \
+            --mount type=bind,source=/tmp/.X11-unix,target=/tmp/.X11-unix \
             $remove --workspace-folder .
     else
         devcontainer exec \
