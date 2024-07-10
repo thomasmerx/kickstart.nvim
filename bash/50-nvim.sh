@@ -1,11 +1,11 @@
 id >> /tmp/profile.log
-if [ ! -f "/home/tom/.local" ]; then
+if [ ! -L "/home/tom/.local" ]; then
 	sudo ln -s "$HOME/.local" /home/tom/.local
 	echo "ln result: $?" >> /tmp/profile.log
 else
 	echo "ln not done" >> /tmp/profile.log
 fi
-if [ ! -f "$HOME/.nix-profile" ]; then
+if [ ! -L "$HOME/.nix-profile" ]; then
 	sudo ln -s "$HOME/.local/state/nix/profiles/profile" "$HOME/.nix-profile"
 	echo "ln nix result: $?" >> /tmp/profile.log
 else
