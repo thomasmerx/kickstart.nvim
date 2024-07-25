@@ -56,6 +56,8 @@ dev()
         devcontainer exec \
 	    --remote-env SSH_AUTH_SOCK="$SSH_AUTH_SOCK" \
 	    --remote-env TZ=UTC \
+        --remote-env DISPLAY="$DISPLAY" \
+        --remote-env VECTOR_LICENSE_FILE="$VECTOR_LICENSE_FILE" \
 	    --workspace-folder . "$@"
     fi
 }
