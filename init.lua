@@ -382,8 +382,11 @@ end
 
 local sphinx_build = function()
   local git_root = get_git_root()
-  local cmd = string.format('bash -ic "dev sphinx-build -b html %s _build"', git_root)
-  vim.cmd('bel 0split | terminal ' .. cmd)
+  local cmd = string.format('silent !dev sphinx-build -W --keep-going -q -b html %s _build', git_root)
+  local result = vim.api.nvim_exec2(cmd, { output = true })
+  if vim.v.shell_error ~= 0 then
+    print("Command failed:\n" .. result.output)
+  end
 end
 
 -- Open RST Sphinx Preview
