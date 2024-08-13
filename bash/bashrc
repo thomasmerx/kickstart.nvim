@@ -124,3 +124,4 @@ if [ $? -ge 2 ]; then
     ssh-agent -a "$SSH_AUTH_SOCK" 2>/dev/null >/dev/null
     ssh-add
 fi
+export BASH_ENV=~/.config/nvim/bash/bashrc
