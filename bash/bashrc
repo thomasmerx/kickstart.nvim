@@ -45,6 +45,7 @@ dev()
         fi
         devcontainer "$1" \
             --mount type=bind,source=/nix,target=/nix \
+            --mount type=bind,source=/tmp,target=/tmp \
             --mount type=bind,source="$HOME"/.config/nvim,target=/home/vscode/.config/nvim \
             --mount type=bind,source="$HOME"/.local,target=/home/vscode/.local \
             --mount type=bind,source="$HOME"/.gitconfig,target=/home/vscode/.gitconfig \
