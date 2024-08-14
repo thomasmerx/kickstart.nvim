@@ -381,7 +381,8 @@ local get_git_root = function()
 end
 
 local sphinx_build = function()
-  vim.cmd('make')
+  vim.cmd('silent make')
+  vim.cmd('cw')
 end
 
 -- Open RST Sphinx Preview
