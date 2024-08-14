@@ -381,12 +381,7 @@ local get_git_root = function()
 end
 
 local sphinx_build = function()
-  local git_root = get_git_root()
-  local cmd = string.format('silent !dev sphinx-build -W --keep-going -q -b html %s _build', git_root)
-  local result = vim.api.nvim_exec2(cmd, { output = true })
-  if vim.v.shell_error ~= 0 then
-    print("Command failed:\n" .. result.output)
-  end
+  vim.cmd('make')
 end
 
 -- Open RST Sphinx Preview
@@ -424,6 +419,15 @@ vim.api.nvim_create_autocmd('TermClose', {
     if vim.v.event.status == 0 then
       vim.cmd({ cmd = 'bdelete', args = { args.buf }, bang = true })
     end
+  end,
+})
+
+-- Set makeprg for rst files
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'rst',
+  callback = function()
+    local git_root = get_git_root()
+    vim.bo.makeprg = string.format('dev sphinx-build -W --keep-going -q -b html %s _build', git_root)
   end,
 })
 
