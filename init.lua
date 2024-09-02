@@ -726,7 +726,7 @@ local servers = {
         buildDir = "${confDir}/_build"
       }
     },
-    cmd = {"bash", "-ic", "dev esbonio"},
+    cmd = {"bash", "-ic", "dev python3 -m esbonio"},
   }
 }
 
