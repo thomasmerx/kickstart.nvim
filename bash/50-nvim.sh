@@ -6,7 +6,7 @@ else
 	echo "ln not done" >> /tmp/profile.log
 fi
 if [ ! -L "$HOME/.nix-profile" ]; then
-	sudo ln -s "$HOME/.local/state/nix/profiles/profile" "$HOME/.nix-profile"
+	sudo ln -s "$HOME/.tools/state/nix/profiles/profile" "$HOME/.nix-profile"
 	echo "ln nix result: $?" >> /tmp/profile.log
 else
 	echo "ln nix not done" >> /tmp/profile.log
@@ -15,8 +15,9 @@ fi
 grep "/nix/var" ~/.profile > /dev/null
 if [ $? == 1 ]; then
 	echo PATH='$PATH':/nix/var/nix/profiles/default/bin >> ~/.profile
-	echo PATH='$PATH':/home/vscode/.nix-profile/bin >> ~/.profile
+	echo PATH='$PATH':~/.nix-profile/bin >> ~/.profile
 	echo PATH='$PATH':~/nvim/bin >> ~/.profile
+	echo PATH='$PATH':~/.tools/bin >> ~/.profile
 	echo PATH="$PATH":/home/vscode/nvim/bin | sudo tee -a /etc/environment
 fi
 grep "alias vim" ~/.bashrc > /dev/null

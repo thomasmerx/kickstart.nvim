@@ -43,15 +43,18 @@ dev()
         else
             remove=
         fi
+        username=$(devcontainer read-configuration --workspace-folder . 2>/dev/null | jq -r '.configuration.remoteUser // "vscode"')
         devcontainer "$1" \
             --mount type=bind,source=/nix,target=/nix \
             --mount type=bind,source=/tmp,target=/tmp \
-            --mount type=bind,source="$HOME"/.config/nvim,target=/home/vscode/.config/nvim \
-            --mount type=bind,source="$HOME"/.local,target=/home/vscode/.local \
-            --mount type=bind,source="$HOME"/.gitconfig,target=/home/vscode/.gitconfig \
-            --mount type=bind,source="$HOME"/nvim,target=/home/vscode/nvim \
+            --mount type=bind,source="$HOME"/.config/nvim,target=/home/"${username}"/.config/nvim \
+            --mount type=bind,source="$HOME"/.local,target=/home/"${username}"/.tools \
+            --mount type=bind,source="$HOME"/.local/share/nvim,target=/home/"${username}"/.local/share/nvim \
+            --mount type=bind,source="$HOME"/.gitconfig,target=/home/"${username}"/.gitconfig \
+            --mount type=bind,source="$HOME"/nvim,target=/home/"${username}"/nvim \
             --mount type=bind,source="$SSH_AUTH_SOCK",target="$SSH_AUTH_SOCK" \
             --mount type=bind,source="$HOME"/.config/nvim/bash/50-nvim.sh,target=/etc/profile.d/50-nvim.sh \
+            --remote-env REQUESTS_CA_BUNDLE="$REQUESTS_CA_BUNDLE" \
             $remove --workspace-folder .
     else
         devcontainer exec \
@@ -59,6 +62,7 @@ dev()
 	    --remote-env TZ=UTC \
         --remote-env DISPLAY="$DISPLAY" \
         --remote-env VECTOR_LICENSE_FILE="$VECTOR_LICENSE_FILE" \
+        --remote-env REQUESTS_CA_BUNDLE="$REQUESTS_CA_BUNDLE" \
 	    --workspace-folder . "$@"
     fi
 }
