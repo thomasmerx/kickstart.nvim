@@ -343,7 +343,12 @@ vim.api.nvim_create_autocmd('FileType', {
 vim.api.nvim_create_user_command('Browse', '!wslview <q-args>', { nargs = 1})
 
 
--- Define custom command
+-- Define custom command DevContainer:
+-- - Create a new tab
+-- - Create a terminal buffer
+-- - Start the devcontainer
+-- - Execute bash in the devcontainer
+-- - Start insert mode
 vim.api.nvim_create_user_command('DevContainer',
   function(opts)
     if vim.fn.isdirectory(".devcontainer") == 1 then
@@ -362,11 +367,29 @@ vim.api.nvim_create_user_command('DevContainer',
       print(command)
       vim.fn.feedkeys(t(command))
       vim.fn.feedkeys(t("devcontainer exec --workspace-folder . bash<CR>"))
-      vim.fn.feedkeys(t("<ESC>gT"))
+      -- vim.fn.feedkeys(t("<ESC>gT"))
       vim.cmd.startinsert()
       -- The following wait is required to allow the Terminal commands to execute
       vim.wait(100, function() end)
     end
+  end,
+  { nargs = '?' })
+
+
+-- Define custom command Term:
+-- - Create a new tab
+-- - Create a terminal buffer
+-- - Start insert mode
+vim.api.nvim_create_user_command('Term',
+  function(opts)
+    vim.cmd.tabnew()
+    vim.cmd('terminal')
+    local t = function(str)
+      return vim.api.nvim_replace_termcodes(str, true, true, true)
+    end
+    vim.cmd.startinsert()
+    -- The following wait is required to allow the Terminal commands to execute
+    vim.wait(100, function() end)
   end,
   { nargs = '?' })
 
