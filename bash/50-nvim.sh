@@ -13,7 +13,8 @@ else
 fi
 
 grep "/nix/var" ~/.profile > /dev/null
-if [ $? == 1 ]; then
+if [ $? -eq 1 ]; then
+	echo "Updating ~/.profile" >> /tmp/profile.log
 	echo PATH='$PATH':/nix/var/nix/profiles/default/bin >> ~/.profile
 	echo PATH='$PATH':~/.nix-profile/bin >> ~/.profile
 	echo PATH='$PATH':~/nvim/bin >> ~/.profile
@@ -21,9 +22,16 @@ if [ $? == 1 ]; then
 	echo PATH="$PATH":/home/vscode/nvim/bin | sudo tee -a /etc/environment
 fi
 grep "alias vim" ~/.bashrc > /dev/null
-if [ $? == 1 ]; then
+if [ $? -eq 1 ]; then
+	echo "Updating ~/.bashrc" >> /tmp/profile.log
 	echo alias sudo=\'sudo -s --preserve-env=PATH \' >> ~/.bashrc
 	echo alias vim=\'nvim\' >> ~/.bashrc
 	echo alias gis=\'git status\' >> ~/.bashrc
 	echo export SHELL=/bin/bash >> ~/.bashrc
 fi
+grep "/.gitconfig" ~/.gitconfig > /dev/null
+if [ $? -ge 1 ]; then
+	echo "Updating ~/.gitconfig" >> /tmp/profile.log
+	git config --global --add include.path /home/tom/.gitconfig
+fi
+cp /etc/ssl/certs/ca-certificates.crt ~/.conan/cacert.pem
