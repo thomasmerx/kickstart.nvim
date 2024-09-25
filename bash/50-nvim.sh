@@ -34,4 +34,6 @@ if [ $? -ge 1 ]; then
 	echo "Updating ~/.gitconfig" >> /tmp/profile.log
 	git config --global --add include.path /home/tom/.gitconfig
 fi
-cp /etc/ssl/certs/ca-certificates.crt ~/.conan/cacert.pem
+if [ -d ~/.conan ]; then
+	cp /etc/ssl/certs/ca-certificates.crt ~/.conan/cacert.pem
+fi
