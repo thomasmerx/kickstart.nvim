@@ -28,6 +28,7 @@ if [ $? -eq 1 ]; then
 	echo alias vim=\'nvim\' >> ~/.bashrc
 	echo alias gis=\'git status\' >> ~/.bashrc
 	echo export SHELL=/bin/bash >> ~/.bashrc
+	echo export CONAN_HOME=~/.tools/conan2 >> ~/.bashrc
 fi
 grep "/.gitconfig" ~/.gitconfig > /dev/null
 if [ $? -ge 1 ]; then
