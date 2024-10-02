@@ -51,6 +51,7 @@ dev()
             --mount type=bind,source="$HOME"/.local,target=/home/"${username}"/.tools \
             --mount type=bind,source="$HOME"/.local/share/nvim,target=/home/"${username}"/.local/share/nvim \
             --mount type=bind,source="$HOME"/.local/state/nvim,target=/home/"${username}"/.local/state/nvim \
+            --mount type=bind,source="$HOME"/.local/lib,target=/home/"${username}"/.local/lib \
             --mount type=bind,source="$HOME"/.gitconfig,target="$HOME"/.gitconfig \
             --mount type=bind,source="$HOME"/nvim,target=/home/"${username}"/nvim \
             --mount type=bind,source="$SSH_AUTH_SOCK",target="$SSH_AUTH_SOCK" \
