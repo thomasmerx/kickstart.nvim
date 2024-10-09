@@ -127,6 +127,9 @@ require('lazy').setup({
       -- Adds LSP completion capabilities
       'hrsh7th/cmp-nvim-lsp',
 
+      -- Adds LSP signature help
+      'hrsh7th/cmp-nvim-lsp-signature-help',
+
       -- Adds buffer completion capabilities
       'hrsh7th/cmp-buffer',
 
@@ -830,6 +833,7 @@ cmp.setup {
   },
   sources = {
     { name = 'nvim_lsp' },
+    { name = 'nvim_lsp_signature_help' },
     { name = 'luasnip' },
     { name = 'path' },
     { name = 'buffer' },
