@@ -152,7 +152,7 @@
     },
     "namespace": {
         "prefix": "namespace",
-        "body": ["namespace ${1:MyNamespace} {", "\t$0", "}"]
+        "body": ["namespace ${1:MyNamespace} {", "\t$0", "} // namespace ${1:MyNamespace}"]
     },
     "#ifdef": {
         "prefix": "#ifdef",
