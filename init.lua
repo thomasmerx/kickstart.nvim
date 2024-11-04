@@ -398,12 +398,30 @@ vim.api.nvim_create_user_command('Term',
 
 
 local get_git_root = function()
-  local git_root = '.'
+  local git_root = vim.fn.fnamemodify('.', ':p')
   local git_dir = vim.fn.finddir('.git', '.;')
   if (git_dir ~= '') then
-    git_root = vim.fn.fnamemodify(git_dir, ':h')
+    git_root = vim.fn.fnamemodify(git_dir, ':p:h:h')
   end
   return git_root
+end
+
+local get_sphinx_conf_dir = function()
+  local git_root = get_git_root()
+  local conf_dir = vim.fn.findfile('conf.py', git_root .. '/**2')
+  conf_dir = vim.fn.fnamemodify(conf_dir, ':h')
+  return conf_dir
+end
+
+get_sphinx_build_dir = function()
+  local git_root = get_git_root()
+  local docs_dir = vim.fn.finddir('build/docs', git_root)
+  if (docs_dir == '') then
+    docs_dir = '_build'
+  else
+    docs_dir = docs_dir .. '/sphinx'
+  end
+  return docs_dir
 end
 
 local sphinx_build = function()
@@ -414,14 +432,14 @@ end
 -- Open RST Sphinx Preview
 vim.api.nvim_create_user_command('RST',
   function()
-    local git_root = vim.fn.fnamemodify(get_git_root(), ':p')
+    local sphinx_build_dir = get_sphinx_build_dir()
     local html_file = vim.fn.expand('%:t:r') .. '.html'
-    local preview_file = vim.fn.findfile(html_file, git_root .. '**')
+    local preview_file = vim.fn.findfile(html_file, sphinx_build_dir .. '**')
     sphinx_build()
     -- vim.fn.system({'wslview', preview_file})
     -- Requires to install browser-sync:
     -- npm install -g browser-sync
-    vim.b[0].jobid_browser_sync = vim.fn.jobstart({'browser-sync', 'start', '--server', '--files', './_build', '--startPath', preview_file})
+    vim.b[0].jobid_browser_sync = vim.fn.jobstart({'browser-sync', 'start', '--server', '--files', sphinx_build_dir, '--startPath', preview_file})
   end,
 { nargs = '?' })
 
@@ -453,8 +471,9 @@ vim.api.nvim_create_autocmd('TermClose', {
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'rst',
   callback = function()
-    local git_root = get_git_root()
-    vim.bo.makeprg = string.format('dev sphinx-build -W --keep-going -q -b html %s _build', git_root)
+    local sphinx_conf_dir = get_sphinx_conf_dir()
+    local sphinx_build_dir = get_sphinx_build_dir()
+    vim.bo.makeprg = string.format('dev sphinx-build -W --keep-going -q -b html %s %s', sphinx_conf_dir, sphinx_build_dir)
   end,
 })
 
