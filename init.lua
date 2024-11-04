@@ -397,6 +397,14 @@ vim.api.nvim_create_user_command('Term',
   { nargs = '?' })
 
 
+local dev_cmd = function()
+  if (vim.env.USER == 'vscode') then
+    return ''
+  else
+    return 'dev'
+  end
+end
+
 local get_git_root = function()
   local git_root = vim.fn.fnamemodify('.', ':p')
   local git_dir = vim.fn.finddir('.git', '.;')
@@ -473,7 +481,7 @@ vim.api.nvim_create_autocmd('FileType', {
   callback = function()
     local sphinx_conf_dir = get_sphinx_conf_dir()
     local sphinx_build_dir = get_sphinx_build_dir()
-    vim.bo.makeprg = string.format('dev sphinx-build -W --keep-going -q -b html %s %s', sphinx_conf_dir, sphinx_build_dir)
+    vim.bo.makeprg = string.format('%s sphinx-build -W --keep-going -q -b html %s %s', dev_cmd(), sphinx_conf_dir, sphinx_build_dir)
   end,
 })
 
@@ -730,6 +738,7 @@ end
 --
 --  If you want to override the default filetypes that your language server will attach to you can
 --  define the property 'filetypes' to the map in question.
+local esbonio_cmd = dev_cmd() .. " python3 -m esbonio"
 local servers = {
   -- clangd = {},
   -- gopls = {},
@@ -771,7 +780,7 @@ local servers = {
         buildDir = "${confDir}/_build"
       }
     },
-    cmd = {"bash", "-ic", "dev python3 -m esbonio"},
+    cmd = {"bash", "-ic", esbonio_cmd},
   }
 }
 
