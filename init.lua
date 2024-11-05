@@ -406,10 +406,10 @@ local dev_cmd = function()
 end
 
 local get_git_root = function()
-  local git_root = vim.fn.fnamemodify('.', ':p')
+  local git_root = '.'
   local git_dir = vim.fn.finddir('.git', '.;')
   if (git_dir ~= '') then
-    git_root = vim.fn.fnamemodify(git_dir, ':p:h:h')
+    git_root = vim.fn.fnamemodify(git_dir, ':h:h')
   end
   return git_root
 end
@@ -425,7 +425,7 @@ get_sphinx_build_dir = function()
   local git_root = get_git_root()
   local docs_dir = vim.fn.finddir('build/docs', git_root)
   if (docs_dir == '') then
-    docs_dir = '_build'
+    docs_dir = './_build'
   else
     docs_dir = docs_dir .. '/sphinx'
   end
@@ -740,6 +740,7 @@ end
 --  define the property 'filetypes' to the map in question.
 local esbonio_cmd = dev_cmd() .. " python3 -m esbonio"
 local sphinx_conf_dir = get_sphinx_conf_dir()
+local sphinx_build_dir = get_sphinx_build_dir()
 local servers = {
   -- clangd = {},
   -- gopls = {},
@@ -777,8 +778,8 @@ local servers = {
         -- enableLivePreview = true
       }, ]]
       sphinx = {
-        confDir = "${sphinx_conf_dir}",
-        buildDir = "${confDir}/_build"
+        confDir = sphinx_conf_dir,
+        buildDir = "${confDir}/../" .. sphinx_build_dir
       }
     },
     cmd = {"bash", "-ic", esbonio_cmd},
