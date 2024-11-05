@@ -406,10 +406,10 @@ local dev_cmd = function()
 end
 
 local get_git_root = function()
-  local git_root = '.'
+  local git_root = vim.fn.fnamemodify('.', ':~')
   local git_dir = vim.fn.finddir('.git', '.;')
   if (git_dir ~= '') then
-    git_root = vim.fn.fnamemodify(git_dir, ':h:h')
+    git_root = vim.fn.fnamemodify(git_dir, ':h')
   end
   return git_root
 end
@@ -421,9 +421,9 @@ local get_sphinx_conf_dir = function()
   return conf_dir
 end
 
-get_sphinx_build_dir = function()
+local get_sphinx_build_dir = function()
   local git_root = get_git_root()
-  local docs_dir = vim.fn.finddir('build/docs', git_root)
+  local docs_dir = vim.fn.finddir('./build/docs', git_root)
   if (docs_dir == '') then
     docs_dir = './_build'
   else
