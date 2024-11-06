@@ -105,8 +105,10 @@ alias gis='git status'
 
 . ~/.config/nvim/bash/git-completion.bash
 
-# Required for WSL2 to avoid some error messages
-sudo mount --make-rshared /
+if [ "$WSL2_DISTRO_NAME" ]; then
+    # Required for WSL2 to avoid some error messages
+    sudo mount --make-rshared /
+fi
 
 alias sudo='sudo '
 if [ -z ${NVIM+x} ]; then
