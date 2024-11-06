@@ -406,30 +406,35 @@ local dev_cmd = function()
 end
 
 local get_git_root = function()
-  local git_root = vim.fn.fnamemodify('.', ':~')
-  local git_dir = vim.fn.finddir('.git', '.;')
+  local git_root = vim.fn.fnamemodify('.', ':p:h')
+  local git_dir = vim.fn.finddir('./.git', git_root .. ';')
   if (git_dir ~= '') then
-    git_root = vim.fn.fnamemodify(git_dir, ':h')
+    git_root = vim.fn.fnamemodify(git_dir, ':p:h:h')
   end
   return git_root
 end
 
 local get_sphinx_conf_dir = function()
   local git_root = get_git_root()
-  local conf_dir = vim.fn.findfile('conf.py', git_root .. '/**2')
-  conf_dir = vim.fn.fnamemodify(conf_dir, ':h')
+  -- local search_root = git_root .. '/**2'
+  local search_root = vim.fn.fnamemodify(git_root, ':p') .. '**2'
+  local conf_dir = vim.fn.findfile('conf.py', search_root)
+  conf_dir = vim.fn.fnamemodify(conf_dir, ':p:h')
+  conf_dir = vim.fn.substitute(conf_dir, vim.fn.getcwd(), '.', '')
   return conf_dir
 end
 
 local get_sphinx_build_dir = function()
   local git_root = get_git_root()
-  local docs_dir = vim.fn.finddir('./build/docs', git_root)
-  if (docs_dir == '') then
-    docs_dir = './_build'
+  local build_dir = vim.fn.finddir('./build/docs', git_root)
+  if (build_dir == '') then
+    build_dir = './_build'
   else
-    docs_dir = docs_dir .. '/sphinx'
+    build_dir = build_dir .. '/sphinx'
   end
-  return docs_dir
+  build_dir = vim.fn.fnamemodify(build_dir, ':p:h')
+  build_dir = vim.fn.substitute(build_dir, vim.fn.getcwd(), '.', '')
+  return build_dir
 end
 
 local sphinx_build = function()
@@ -440,9 +445,11 @@ end
 -- Open RST Sphinx Preview
 vim.api.nvim_create_user_command('RST',
   function()
+    local git_root = get_git_root()
     local sphinx_build_dir = get_sphinx_build_dir()
+    sphinx_build_dir = vim.fn.fnamemodify(sphinx_build_dir, ':p')
     local html_file = vim.fn.expand('%:t:r') .. '.html'
-    local preview_file = vim.fn.findfile(html_file, sphinx_build_dir .. '**')
+    local preview_file = vim.fn.findfile(html_file, git_root .. '**')
     sphinx_build()
     -- vim.fn.system({'wslview', preview_file})
     -- Requires to install browser-sync:
