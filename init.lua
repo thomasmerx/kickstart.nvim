@@ -428,9 +428,9 @@ local get_sphinx_build_dir = function()
   local git_root = get_git_root()
   local build_dir = vim.fn.finddir('./build/docs', git_root)
   if (build_dir == '') then
-    build_dir = './_build'
+    build_dir = '_build/'
   else
-    build_dir = build_dir .. '/sphinx'
+    build_dir = build_dir .. '/sphinx/'
   end
   build_dir = vim.fn.fnamemodify(build_dir, ':p:h')
   build_dir = vim.fn.substitute(build_dir, vim.fn.getcwd(), '.', '')
@@ -785,8 +785,7 @@ local servers = {
         -- enableLivePreview = true
       }, ]]
       sphinx = {
-        confDir = sphinx_conf_dir,
-        buildDir = "${confDir}/../" .. sphinx_build_dir
+        confDir = sphinx_conf_dir
       }
     },
     cmd = {"bash", "-ic", esbonio_cmd},
