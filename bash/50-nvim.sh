@@ -17,9 +17,7 @@ if [ $? -eq 1 ]; then
 	echo "Updating ~/.profile" >> /tmp/profile.log
 	echo PATH='$PATH':/nix/var/nix/profiles/default/bin >> ~/.profile
 	echo PATH='$PATH':~/.nix-profile/bin >> ~/.profile
-	echo PATH='$PATH':~/nvim/bin >> ~/.profile
 	echo PATH='$PATH':~/.tools/bin >> ~/.profile
-	echo PATH="$PATH":/home/vscode/nvim/bin | sudo tee -a /etc/environment
 fi
 grep "alias vim" ~/.bashrc > /dev/null
 if [ $? -eq 1 ]; then

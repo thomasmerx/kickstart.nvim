@@ -50,7 +50,6 @@ dev()
             --mount type=bind,source="$HOME"/.config/nvim,target=/home/"${username}"/.config/nvim \
             --mount type=bind,source="$HOME"/.local,target=/home/"${username}"/.tools \
             --mount type=bind,source="$HOME"/.gitconfig,target="$HOME"/.gitconfig \
-            --mount type=bind,source="$HOME"/nvim,target=/home/"${username}"/nvim \
             --mount type=bind,source="$SSH_AUTH_SOCK",target="$SSH_AUTH_SOCK" \
             --mount type=bind,source="$HOME"/.config/nvim/bash/50-nvim.sh,target=/etc/profile.d/50-nvim.sh \
             --mount type=bind,source=/etc/ssl/certs/ca-certificates.crt,target=/etc/ssl/certs/ca-certificates.crt \
