@@ -159,12 +159,12 @@ require('lazy').setup({
       },
       {
         "<leader>cs",
-        "<cmd>Trouble symbols toggle focus=false<cr>",
+        "<cmd>Trouble symbols toggle focus=true win.size=0.3<cr>",
         desc = "Symbols (Trouble)",
       },
       {
         "<leader>cl",
-        "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+        "<cmd>Trouble lsp toggle focus=true win.position=right win.size=0.3<cr>",
         desc = "LSP Definitions / references / ... (Trouble)",
       },
       {
