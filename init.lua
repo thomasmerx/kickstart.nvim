@@ -800,7 +800,7 @@ end
 --
 --  If you want to override the default filetypes that your language server will attach to you can
 --  define the property 'filetypes' to the map in question.
-local esbonio_cmd = dev_cmd() .. " python3 -m esbonio"
+local esbonio_cmd = dev_cmd() .. " esbonio"
 local sphinx_conf_dir = get_sphinx_conf_dir()
 local sphinx_build_dir = get_sphinx_build_dir()
 local servers = {

@@ -17,6 +17,7 @@ if [ $? -eq 1 ]; then
 	echo "Updating ~/.profile" >> /tmp/profile.log
 	echo PATH='$PATH':/nix/var/nix/profiles/default/bin >> ~/.profile
 	echo PATH='$PATH':~/.nix-profile/bin >> ~/.profile
+	echo PATH='$PATH':~/.local/share/nvim/mason/bin >> ~/.profile
 	echo PATH='$PATH':~/.tools/bin >> ~/.profile
 fi
 grep "alias vim" ~/.bashrc > /dev/null
