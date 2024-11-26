@@ -570,7 +570,10 @@ vim.keymap.set('t', "<C-v><ESC>", "<ESC>", { silent = true })
 vim.keymap.set('n', "<F4>", ":let @\" = expand('%:p')<CR>", { silent = true })
 
 -- Find files including hidden files
-vim.keymap.set('n', '<Leader>ff', ':lua require"telescope.builtin".find_files({ hidden = true })<CR>', {noremap = true, silent = true, desc= '[F]ind [Files] including hidden'})
+vim.keymap.set('n', '<Leader>ff', ':lua require"telescope.builtin".find_files({ hidden = true })<CR>', {noremap = true, silent = true, desc= '[F]ind [F]iles including hidden'})
+
+-- Find files no_ignore
+vim.keymap.set('n', '<Leader>fi', ':lua require"telescope.builtin".find_files({ no_ignore = true })<CR>', {noremap = true, silent = true, desc= '[F]ind Files no-[i]gnore'})
 
 -- Toggle nvim-tree
 vim.keymap.set('n', '<Leader>t', ':NvimTreeFindFileToggle<CR>', {noremap = true, silent = true, desc='Toggle nvim-tree'})
