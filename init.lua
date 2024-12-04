@@ -296,6 +296,15 @@ require('lazy').setup({
       vim.g.mkdp_echo_preview_url = 1
       vim.g.mkdp_browserfunc = 'Nop'
       vim.g.mkdp_auto_close = 0
+      local plantuml_server = os.getenv("PLANTUML_SERVER")
+      if not plantuml_server then
+        plantuml_server = "https://www.plantuml.com/plantuml"
+      end
+      vim.g.mkdp_preview_options = {
+        uml = {
+          server = plantuml_server
+        }
+      }
     end
   },
 
