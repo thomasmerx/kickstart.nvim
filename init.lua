@@ -46,6 +46,12 @@ vim.g.loaded_netrwPlugin = 1
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+vim.cmd([[
+  function! Nop(url)
+    " Do nothing
+  endfunction
+]])
+
 -- Install package manager
 --    https://github.com/folke/lazy.nvim
 --    `:help lazy.nvim.txt` for more info
@@ -285,7 +291,11 @@ require('lazy').setup({
   {
     -- Markdown Preview
     'iamcco/markdown-preview.nvim',
-    build = ':call mkdp#util#install()'
+    build = ':call mkdp#util#install()',
+    config = function()
+      vim.g.mkdp_echo_preview_url = 1
+      vim.g.mkdp_browserfunc = 'Nop'
+    end
   },
 
   {
