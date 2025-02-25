@@ -336,6 +336,13 @@ require('lazy').setup({
 
   { 'windwp/nvim-ts-autotag' },
 
+  {
+      'danymat/neogen',
+      config = true,
+      -- Uncomment next line if you want to follow only stable versions
+      -- version = "*"
+  },
+
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
@@ -597,6 +604,9 @@ vim.keymap.set('n', '<Leader>fi', ':lua require"telescope.builtin".find_files({ 
 
 -- Toggle nvim-tree
 vim.keymap.set('n', '<Leader>t', ':NvimTreeFindFileToggle<CR>', {noremap = true, silent = true, desc='Toggle nvim-tree'})
+
+-- Generate documentation
+vim.keymap.set('n', '<Leader>nf', ':lua require"neogen".generate()<CR>', {noremap = true, silent = true, desc='Document code'})
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
