@@ -100,7 +100,7 @@ PROMPT_COMMAND='PS1="${c_user}\u${c_reset}@${c_user}\h${c_reset}:${c_path}\W${c_
 
 alias gis='git status'
 
-if [ -n "$WSL2_DISTRO_NAME" ]; then
+if [ -n "$WSL_DISTRO_NAME" ]; then
     # Required for WSL2 to avoid some error messages
     sudo mount --make-rshared /
 fi
