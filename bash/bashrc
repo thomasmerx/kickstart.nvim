@@ -63,6 +63,9 @@ dev()
         --remote-env VECTOR_LICENSE_FILE="$VECTOR_LICENSE_FILE" \
         --remote-env REQUESTS_CA_BUNDLE="$REQUESTS_CA_BUNDLE" \
         --remote-env PLANTUML_SERVER="$PLANTUML_SERVER" \
+        --remote-env RAI_LLM_URL="$RAI_LLM_URL" \
+        --remote-env RAI_LLM_API_TOKEN="$RAI_LLM_API_TOKEN" \
+        --remote-env RAI_LLM_MODEL="$RAI_LLM_MODEL" \
 	    --workspace-folder . "$@"
     fi
 }
