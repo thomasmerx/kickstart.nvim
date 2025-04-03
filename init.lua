@@ -52,6 +52,10 @@ vim.cmd([[
   endfunction
 ]])
 
+local rai_llm_url = os.getenv("RAI_LLM_URL")
+local rai_llm_api_token = os.getenv("RAI_LLM_API_TOKEN")
+local rai_llm_model = os.getenv("RAI_LLM_MODEL")
+
 -- Install package manager
 --    https://github.com/folke/lazy.nvim
 --    `:help lazy.nvim.txt` for more info
@@ -312,7 +316,7 @@ require('lazy').setup({
     -- Detect tabstop and shiftwidth automatically
     'nmac427/guess-indent.nvim',
     config = function()
-      require('guess-indent').setup()
+      require('guess-indent').setup({})
     end
   },
 
@@ -347,6 +351,48 @@ require('lazy').setup({
     'Zeioth/dooku.nvim',
     event = "VeryLazy",
     opts = {},
+  },
+
+  {
+    "olimorris/codecompanion.nvim",
+    config = true,
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    opts = {
+      -- opts = {
+      --   log_level = "DEBUG",
+      -- },
+      strategies = {
+        chat = {
+          adapter = "rai_openai",
+        },
+        inline = {
+          adapter = "rai_openai",
+        },
+        cmd = {
+          adapter = "rai_openai",
+        }
+      },
+      adapters = {
+        rai_openai = function()
+          return require("codecompanion.adapters").extend("openai_compatible", {
+            env = {
+              url = rai_llm_url,
+              api_key = rai_llm_api_token,
+              chat_url = "/v1/chat/completions",
+              models_endpoint = "/v1/models",
+            },
+            schema = {
+              model = {
+                default = rai_llm_model,
+              },
+            },
+          })
+        end,
+      },
+    },
   },
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
@@ -689,7 +735,7 @@ vim.keymap.set('n', '<leader>lg', require('telescope').extensions.live_grep_args
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim' },
+  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim', 'yaml' },
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = false,
