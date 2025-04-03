@@ -367,6 +367,16 @@ require('lazy').setup({
       strategies = {
         chat = {
           adapter = "rai_openai",
+          slash_commands = {
+            ["file"] = {
+              callback = "strategies.chat.slash_commands.file",
+              description = "Select a file using telescope",
+              opts = {
+                provider = "telescope",
+                contains_code = true,
+              }
+            }
+          },
         },
         inline = {
           adapter = "rai_openai",
