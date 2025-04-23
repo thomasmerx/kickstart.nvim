@@ -118,13 +118,17 @@ local config = {
       configuration = {
         runtimes = {
           {
-            name = "JavaSE-17",
-            path = "/usr/lib/jvm/java-17-openjdk-amd64",
+            name = "JavaSE-21",
+            path = "/usr/lib/jvm/java-21-openjdk-amd64",
           },
-          {
-            name = "JavaSE-11",
-            path = "/usr/lib/jvm/java-11-openjdk-amd64",
-          },
+          -- {
+          --   name = "JavaSE-17",
+          --   path = "/usr/lib/jvm/java-17-openjdk-amd64",
+          -- },
+          -- {
+          --   name = "JavaSE-11",
+          --   path = "/usr/lib/jvm/java-11-openjdk-amd64",
+          -- },
         }
       }
     }
@@ -135,7 +139,7 @@ local config = {
   -- See: https://github.com/eclipse/eclipse.jdt.ls#running-from-the-command-line
   -- for the full list of options
   cmd = {
-    "/usr/lib/jvm/java-17-openjdk-amd64/bin/java",
+    "java",
     '-Declipse.application=org.eclipse.jdt.ls.core.id1',
     '-Dosgi.bundles.defaultStartLevel=4',
     '-Declipse.product=org.eclipse.jdt.ls.core.product',
