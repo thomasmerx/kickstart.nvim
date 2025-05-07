@@ -264,6 +264,7 @@ require('lazy').setup({
           -- For major updates, this must be adjusted manually.
           version = "^1.0.0",
       },
+      {'cljoly/telescope-repo.nvim'},
     },
     config = function()
       require("telescope").load_extension("live_grep_args")
@@ -439,6 +440,18 @@ vim.o.mouse = 'a'
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
 vim.o.clipboard = 'unnamedplus'
+vim.g.clipboard = {
+  name = "tmux",
+  copy = {
+    ["+"] = "tmux load-buffer -",
+    ["*"] = "tmux load-buffer -",
+  },
+  paste = {
+    ["+"] = "tmux save-buffer -",
+    ["*"] = "tmux save-buffer -",
+  },
+  cache_enabled = true,
+}
 
 -- Enable break indent
 vim.o.breakindent = true
@@ -715,6 +728,13 @@ require('telescope').setup {
       -- theme = "dropdown", -- use dropdown theme
       -- theme = { }, -- use own theme spec
       -- layout_config = { mirror=true }, -- mirror preview pane
+    },
+    repo = {
+      list = {
+        search_dirs = {
+          "~/git",
+        }
+      }
     }
   }
 }
@@ -722,6 +742,7 @@ require('telescope').setup {
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
 pcall(require('telescope').load_extension, 'live_grep_args')
+pcall(require('telescope').load_extension, 'repo')
 
 -- See `:help telescope.builtin`
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
@@ -741,6 +762,7 @@ vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { de
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 vim.keymap.set('n', '<leader>lg', require('telescope').extensions.live_grep_args.live_grep_args, { desc = '[L]ive Grep Args' })
+vim.keymap.set('n', '<leader>sr', require('telescope').extensions.repo.cached_list, { desc = '[S]earch Repos' })
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
