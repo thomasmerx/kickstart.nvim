@@ -36,10 +36,6 @@ I hope you enjoy your Neovim journey,
 P.S. You can delete this when you're done too. It's your config now :)
 --]]
 
--- Disable integrated netrw as we want to use nvim-tree
-vim.g.loaded_netrw       = 1
-vim.g.loaded_netrwPlugin = 1
-
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
@@ -91,18 +87,22 @@ require('lazy').setup({
   -- NOTE: This is where your plugins related to LSP can be installed.
   --  The configuration is done below. Search for lspconfig to find it below.
   {
-    -- Nice tree viewer
-    'nvim-tree/nvim-tree.lua',
-    opts = {
-      view = {
-        width = 75
-      },
-      update_focused_file = {
-        enable = true,
-      },
-    },
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
     dependencies = {
-      'nvim-tree/nvim-web-devicons',
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+      "MunifTanjim/nui.nvim",
+      -- {"3rd/image.nvim", opts = {}}, -- Optional image support in preview window: See `# Preview Mode` for more information
+    },
+    lazy = false, -- neo-tree will lazily load itself
+    ---@module "neo-tree"
+    ---@type neotree.Config?
+    opts = {
+      filesystem = {
+        hijack_netrw_behavior = "open_current",
+      }
+      -- fill any relevant options here
     },
   },
 
@@ -678,8 +678,8 @@ vim.keymap.set('n', '<Leader>ff', ':lua require"telescope.builtin".find_files({ 
 -- Find files no_ignore
 vim.keymap.set('n', '<Leader>fi', ':lua require"telescope.builtin".find_files({ no_ignore = true })<CR>', {noremap = true, silent = true, desc= '[F]ind Files no-[i]gnore'})
 
--- Toggle nvim-tree
-vim.keymap.set('n', '<Leader>t', ':NvimTreeFindFileToggle<CR>', {noremap = true, silent = true, desc='Toggle nvim-tree'})
+-- Toggle neo-tree
+vim.keymap.set('n', '<Leader>t', ':Neotree<CR>', {noremap = true, silent = true, desc='Toggle neo-tree'})
 
 -- Generate documentation
 vim.keymap.set('n', '<Leader>nf', ':lua require"neogen".generate()<CR>', {noremap = true, silent = true, desc='Document code'})
