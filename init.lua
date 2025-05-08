@@ -100,6 +100,9 @@ require('lazy').setup({
     ---@type neotree.Config?
     opts = {
       filesystem = {
+        follow_current_file = {
+          enabled = true,
+        },
         hijack_netrw_behavior = "open_current",
       }
       -- fill any relevant options here
@@ -679,7 +682,7 @@ vim.keymap.set('n', '<Leader>ff', ':lua require"telescope.builtin".find_files({ 
 vim.keymap.set('n', '<Leader>fi', ':lua require"telescope.builtin".find_files({ no_ignore = true })<CR>', {noremap = true, silent = true, desc= '[F]ind Files no-[i]gnore'})
 
 -- Toggle neo-tree
-vim.keymap.set('n', '<Leader>t', ':Neotree<CR>', {noremap = true, silent = true, desc='Toggle neo-tree'})
+vim.keymap.set('n', '<Leader>t', ':Neotree reveal<CR>', {noremap = true, silent = true, desc='Toggle neo-tree'})
 
 -- Generate documentation
 vim.keymap.set('n', '<Leader>nf', ':lua require"neogen".generate()<CR>', {noremap = true, silent = true, desc='Document code'})
