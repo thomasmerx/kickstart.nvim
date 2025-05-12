@@ -443,18 +443,6 @@ vim.o.mouse = 'a'
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
 vim.o.clipboard = 'unnamedplus'
-vim.g.clipboard = {
-  name = "tmux",
-  copy = {
-    ["+"] = "tmux load-buffer -",
-    ["*"] = "tmux load-buffer -",
-  },
-  paste = {
-    ["+"] = "tmux save-buffer -",
-    ["*"] = "tmux save-buffer -",
-  },
-  cache_enabled = true,
-}
 
 -- Enable break indent
 vim.o.breakindent = true
