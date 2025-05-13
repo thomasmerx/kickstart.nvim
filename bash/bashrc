@@ -1,5 +1,7 @@
 # Extensions to be sourced by ~/.bashrc
 
+. ~/.config/nvim/bash/cmds
+
 # Configure colors, if available.
 if [ `which tput` ] && tput setaf 1 >&/dev/null; then
     c_reset='\[\e[0m\]'
@@ -70,25 +72,6 @@ dev()
         --remote-env RAI_LLM_MODEL="$RAI_LLM_MODEL" \
 	    --workspace-folder . "$@"
     fi
-}
-
-dirdiff()
-{
-    # Shell-escape each path:
-    DIR1=$(printf '%q' "$1"); shift
-    DIR2=$(printf '%q' "$1"); shift
-    nvim $@ -c "DirDiff $DIR1 $DIR2"
-}
-
-mrc()
-{
-    local branch_name
-    branch_name=$(git branch --show-current)
-    git remote update && \
-    git co main && \
-    git pull && \
-    git branch -d "${branch_name}" && \
-    git remote prune origin
 }
 
 excali()
