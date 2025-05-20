@@ -268,9 +268,11 @@ require('lazy').setup({
           version = "^1.0.0",
       },
       {'cljoly/telescope-repo.nvim'},
+      {'isak102/telescope-git-file-history.nvim'},
     },
     config = function()
       require("telescope").load_extension("live_grep_args")
+      require("telescope").load_extension("git_file_history")
     end
   },
 
