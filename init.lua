@@ -269,10 +269,12 @@ require('lazy').setup({
       },
       {'cljoly/telescope-repo.nvim'},
       {'isak102/telescope-git-file-history.nvim'},
+      {'nvim-telescope/telescope-ui-select.nvim'},
     },
     config = function()
       require("telescope").load_extension("live_grep_args")
       require("telescope").load_extension("git_file_history")
+      require("telescope").load_extension("ui-select")
     end
   },
 
