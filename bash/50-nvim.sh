@@ -37,3 +37,8 @@ fi
 if [ -d ~/.conan ]; then
 	cp /etc/ssl/certs/ca-certificates.crt ~/.conan/cacert.pem
 fi
+if [ ! -d ~/.config/direnv ]; then
+	mkdir -p ~/.config/direnv
+	echo '[whitelist]' > ~/.config/direnv/direnv.toml
+	echo 'prefix = ["/workspaces"]' >> ~/.config/direnv/direnv.toml
+fi

@@ -19,3 +19,4 @@ mrc()
     git remote prune origin
 }
 
+eval "$(direnv hook bash)"
