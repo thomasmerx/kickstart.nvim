@@ -346,6 +346,18 @@ require('lazy').setup({
   },
 
   {
+    'sbdchd/neoformat',
+    config = function()
+      vim.g.neoformat_python_black = {
+        exe = "black",
+        stdin = 1,
+        args = { '-q', '--line-length 120', '-' }
+      }
+      vim.g.neoformat_enabled_python = { 'black' }
+    end
+  },
+
+  {
     'windwp/nvim-autopairs',
     event = "InsertEnter",
     opts = {} -- this is equalent to setup({}) functions
