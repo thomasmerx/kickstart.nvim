@@ -906,23 +906,16 @@ local on_attach = function(_, bufnr)
 
     vim.keymap.set({'n', 'v'}, keys, func, { buffer = bufnr, desc = desc })
   end
-  local nunmap = function(keys)
-    vim.keymap.del('n', keys)
-  end
 
   nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
   nvmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
 
-  nunmap('gra')
-  nunmap('grn')
-  nunmap('grr')
-  nunmap('gri')
-  nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
-  nmap('gr', function()
+  nmap('<leader>gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
+  nmap('<leader>gr', function()
     require('telescope.builtin').lsp_references({fname_width = 70, trim_text = true})
   end, '[G]oto [R]eferences')
-  nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
+  nmap('<leader>gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
   nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
   nmap('<leader>ds', function()
     require('telescope.builtin').lsp_document_symbols({symbol_width = 50})
