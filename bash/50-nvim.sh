@@ -26,6 +26,8 @@ if [ $? -eq 1 ]; then
 	echo alias sudo=\'sudo -s --preserve-env=PATH \' >> ~/.bashrc
 	echo alias vim=\'nvim\' >> ~/.bashrc
 	echo alias gis=\'git status\' >> ~/.bashrc
+	echo export EDITOR=hx >> ~/.bashrc
+	echo export VISUAL=hx >> ~/.bashrc
 	echo export SHELL=/bin/bash >> ~/.bashrc
 	echo . ~/.config/nvim/bash/cmds >> ~/.bashrc
 fi

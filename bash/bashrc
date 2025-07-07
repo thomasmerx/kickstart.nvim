@@ -104,8 +104,8 @@ if [ -z ${NVIM+x} ]; then
 else
   alias vim='nvim --server $NVIM --remote'
 fi
-export EDITOR=vim
-export VISUAL=vim
+export EDITOR=hx
+export VISUAL=hx
 
 export REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
 export SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
