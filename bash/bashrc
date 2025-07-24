@@ -55,6 +55,7 @@ dev()
             --mount type=bind,source="$SSH_AUTH_SOCK",target="$SSH_AUTH_SOCK" \
             --mount type=bind,source="$HOME"/.config/nvim/bash/50-nvim.sh,target=/etc/profile.d/50-nvim.sh \
             --mount type=bind,source="$HOME"/.config/helix,target=/home/"${username}"/.config/helix \
+            --mount type=bind,source="$HOME"/.config/smartcat,target=/home/"${username}"/.config/smartcat \
             --mount type=bind,source=/etc/ssl/certs/ca-certificates.crt,target=/etc/ssl/certs/ca-certificates.crt \
             --mount type=bind,source="$HOME"/.cache/bazel,target=/home/"${username}"/.cache/bazel \
             --mount type=bind,source="$PWD"/..,target=/workspaces \
