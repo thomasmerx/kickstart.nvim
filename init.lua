@@ -422,21 +422,23 @@ require('lazy').setup({
         }
       },
       adapters = {
-        rai_openai = function()
-          return require("codecompanion.adapters").extend("openai_compatible", {
-            env = {
-              url = rai_llm_url,
-              api_key = rai_llm_api_token,
-              chat_url = "/v1/chat/completions",
-              models_endpoint = "/v1/models",
-            },
-            schema = {
-              model = {
-                default = rai_llm_model,
+        http = {
+          rai_openai = function()
+            return require("codecompanion.adapters").extend("openai_compatible", {
+              env = {
+                url = rai_llm_url,
+                api_key = rai_llm_api_token,
+                chat_url = "/v1/chat/completions",
+                models_endpoint = "/v1/models",
               },
-            },
-          })
-        end,
+              schema = {
+                model = {
+                  default = rai_llm_model,
+                },
+              },
+            })
+          end,
+        }
       },
     },
   },
@@ -1011,15 +1013,15 @@ mason_lspconfig.setup {
 
 mason_lspconfig.setup_handlers {
   function(server_name)
-    require('lspconfig')[server_name].setup {
+    vim.lsp.config(server_name, {
       capabilities = capabilities,
       on_attach = on_attach,
       settings = servers[server_name],
       filetypes = (servers[server_name] or {}).filetypes,
       autostart = (servers[server_name] or {}).autostart,
       init_options = (servers[server_name] or {}).init_options,
-      cmd = (servers[server_name] or {}).cmd or require('lspconfig')[server_name].cmd,
-    }
+      cmd = (servers[server_name] or {}).cmd or vim.lsp.config[server_name].cmd,
+    })
   end
 }
 
